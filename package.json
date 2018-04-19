@@ -8,12 +8,13 @@
     "build:server": "webpack --config build/webpack.config.server.js",
     "clear": "rimraf dist",
     "build": "npm run clear && npm run build:client  && npm run build:server",
-    "start":"node server/server.js"
+    "start": "node server/server.js"
   },
   "author": "Sino",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
+    "npm": "^5.8.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "webpack": "^4.6.0"
