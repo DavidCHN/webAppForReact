@@ -3,6 +3,7 @@ const path=require('path')
 
 module.exports={
     target:'node',
+    mode: 'development',
     entry:{
         app:path.join(__dirname,'../client/server-entry.js')
     },
@@ -14,6 +15,14 @@ module.exports={
     },
     module:{
         rules:[
+            {
+                enforce:'pre',
+                test:/.(jsx|js)$/,
+                loader:'eslint-loader',
+                exclude:[
+                    path.resolve(__dirname,'../node_modules')
+                ]
+            },
             {
                 test:/.jsx$/,
                 loader:'babel-loader'
