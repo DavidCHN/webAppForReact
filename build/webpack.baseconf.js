@@ -1,6 +1,10 @@
 const path = require('path')
 module.exports = {
   mode: 'development',
+  output: {
+    path: path.join(__dirname, '../dist'),
+    publicPath: '/public/'
+  },
   module: {
     rules: [
       {
@@ -23,9 +27,5 @@ module.exports = {
         ]
       }
     ]
-  },
-  output: {
-    path: path.join(__dirname, '../dist'),
-    publicPath: '/public/'
-  },
+  }
 }
