@@ -9,6 +9,15 @@ export default class AppState {
   @action add() {
     this.count += 1
   }
+  @action changeName(name) {
+    this.name = name
+  }
+  toJson() {
+    return {
+      count: this.count,
+      name: this.name,
+    }
+  }
 }
 
 // const appState = new AppState()

@@ -6,8 +6,8 @@ export default {
   AppState,
 }
 
-export const createStoreMap = () => (
-  {
+export const createStoreMap = () => {//eslint-disable-line
+  return {
     appState: new AppState(),
   }
-)
+}

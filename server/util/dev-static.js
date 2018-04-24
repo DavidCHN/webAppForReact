@@ -40,13 +40,15 @@ module.exports = function (app) {
   app.get('*', function (req, res) {
     getTemplate().then(template => {
       const routerContext = {}
-      const app = serverBundle(createStoreMap(), routerContext, req.url)
+      const stores = createStoreMap()
+      const app = serverBundle(stores, routerContext, req.url)
       asyncBootstrap(app).then(() => {
         if (routerContext.url) {
           res.status(302).setHeader('Location', routerContext.url)
           res.end()
           return
         }
+        console.log(stores.appState.count)
         const content = ReactDomServer.renderToString(app)
         res.send(template.replace('<!-- app -->', content))
       })
