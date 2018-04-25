@@ -1,8 +1,12 @@
 import { observable, computed, action } from 'mobx'
 
 export default class AppState {
-  @observable count = 0
-  @observable name = 'Sino'
+  constructor({ count, name } = { count: 100, name: 'CHINASINO' }) {
+    this.count = count
+    this.name = name
+  }
+  @observable count
+  @observable name
   @computed get msg() {
     return `${this.name} say count is ${this.count}`
   }

@@ -12,12 +12,12 @@ export default class TopicList extends React.Component {
   componentDidMount() {
 
   }
-  asyncBootstrap() {
+  asyncBootstrapper() {
     return new Promise((resolve) => {
       setTimeout(() => {
         this.props.appState.count = 3
         resolve(true)
-      })
+      }, 1000)
     })
   }
 
