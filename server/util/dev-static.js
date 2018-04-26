@@ -46,6 +46,9 @@ module.exports = function (app) {
     target: 'http://localhost:8000'
   }))
   app.get('*', function (req, res, next) {
+    if (!serverBundle) {
+      return res.send('waiting for compile, refresh later')
+    }
     getTemplate().then(template => {
       return serverRender(serverBundle, template, req, res)
     }).catch()
