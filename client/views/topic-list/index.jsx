@@ -1,7 +1,9 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
 import { AppState } from '../../store/app-state'
+
 
 @inject('appState') @observer
 export default class TopicList extends React.Component {
@@ -17,7 +19,7 @@ export default class TopicList extends React.Component {
       setTimeout(() => {
         this.props.appState.count = 3
         resolve(true)
-      }, 1000)
+      })
     })
   }
 
@@ -27,6 +29,10 @@ export default class TopicList extends React.Component {
   render() {
     return (
       <div>
+        <Helmet>
+          <title> This is TopicList Page</title>
+          <meta name="description" content="This is meta description" />
+        </Helmet>
         <input type="text" onChange={this.changeName} />
         <span> {this.props.appState.msg}</span>
       </div>
