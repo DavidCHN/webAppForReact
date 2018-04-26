@@ -1,8 +1,14 @@
 const serialize = require('serialize-javascript')
 const ejs = require('ejs')
-const asyncBootstrap = require('react-async-bootstrapper')
+const asyncBootstrapper = require('react-async-bootstrapper')
 const ReactDomServer = require('react-dom/server')
 const Helmet = require('react-helmet').default
+const SheetsRegistry = require('react-jss').SheetsRegistry
+const create = require('jss').create
+const preset = require('jss-preset-default').default
+const createMuiTheme = require('material-ui/styles').createMuiTheme
+const createGenerateClassName = require('material-ui/styles/createGenerateClassName').default
+const colors = require('material-ui/colors')
 
 const getStoreState = (stores) => {
   return Object.keys(stores).reduce((result, storeName) => {
@@ -17,9 +23,19 @@ module.exports = (bundle, template, req, res) => {
     const createApp = bundle.default
     const routerContext = {}
     const stores = createStoreMap()
-    const app = createApp(stores, routerContext, req.url)
+    const sheetsRegistry = new SheetsRegistry()
+    const jss = create(preset())
+    jss.options.createGenerateClassName = createGenerateClassName
+    const theme = createMuiTheme({
+      palette: {
+        primary: colors.lightBlue,
+        accent: colors.pink,
+        type: 'light'
+      }
+    })
+    const app = createApp(stores, routerContext, sheetsRegistry, jss, theme, req.url)
 
-    asyncBootstrap(app).then(() => {
+    asyncBootstrapper(app).then(() => {
       if (routerContext.url) {
         res.status(302).setHeader('Location', routerContext.url)
         res.end()
@@ -35,7 +51,8 @@ module.exports = (bundle, template, req, res) => {
         meta: helmet.meta.toString(),
         title: helmet.title.toString(),
         style: helmet.style.toString(),
-        link: helmet.link.toString()
+        link: helmet.link.toString(),
+        materialCss: sheetsRegistry.toString()
       })
       res.send(html)
       resolve()
