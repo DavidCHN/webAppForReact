@@ -18,7 +18,7 @@ import { tabs } from '../../utils/variable-define'
   }
 }) @observer
 export default class TopicList extends React.Component {
-  static contextType = {
+  static contextTypes = {
     router: PropTypes.object,
   }
   constructor() {
@@ -31,19 +31,26 @@ export default class TopicList extends React.Component {
     this.props.topicStore.fetchTopics(tab)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.search !== this.props.location.search) {
+      this.props.topicStore.fetchTopics(this.getTab(nextProps.location.search))
+    }
+  }
+
 
   /* eslint-disable */
   onClickHandle() {
 
   }
   /* eslint-enable */
-  getTab() {
-    const query = queryString.parse(this.props.location.search)
+  getTab(search) {
+    const searchs = search || this.props.location.search
+    const query = queryString.parse(searchs)
     return query.tab || 'all'
   }
   changeTab(event, value) {
     this.context.router.history.push({
-      pathname: '/index',
+      pathname: '/list',
       search: `?tab=${value}`,
     })
   }
@@ -94,7 +101,12 @@ export default class TopicList extends React.Component {
         {
           syncingTopic ?
             (
-              <div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-around',
+                padding: '40px 0',
+              }}
+              >
                 <CircularProgress color="primary" size={100} />
               </div>
             ) :
