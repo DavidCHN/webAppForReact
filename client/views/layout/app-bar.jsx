@@ -45,12 +45,12 @@ class MainAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="fixed" >
           <ToolBar>
-            <IconButton color="contrast" onClick={this.onHomeIconClick}>
+            <IconButton color="default" onClick={this.onHomeIconClick}>
               <HomeIcon />
             </IconButton>
-            <Typography type="title" color="contrast" className={classes.flex}><h1>兰州市供水集团公司智慧水务</h1> </Typography>
-            <Button color="contrast" onclick={this.createButtonClick}> 新建主题</Button>
-            <Button color="contrast" onclick={this.loginButtonClick}> 登陆</Button>
+            <Typography type="title" color="default" className={classes.flex}>兰州市供水集团公司智慧水务 </Typography>
+            <Button color="default" onClick={this.createButtonClick}> 新建主题</Button>
+            <Button color="default" onClick={this.loginButtonClick}> 登陆</Button>
           </ToolBar>
         </AppBar>
       </div>

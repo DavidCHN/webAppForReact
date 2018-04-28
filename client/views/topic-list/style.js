@@ -10,7 +10,7 @@ export const topicPrimaryStyle = (theme) => {
       color: '#555',
     },
     tab: {
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: '#2196F3',
       textAlign: 'center',
       display: 'inline-block',
       padding: '0 6px',

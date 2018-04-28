@@ -8,7 +8,7 @@ export default class App extends React.Component {
   }
   render() {
     return [
-      <MainAppBar />,
+      <MainAppBar key="appbar" />,
       <Routes key="routes" />,
     ]
   }

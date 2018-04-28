@@ -9,16 +9,18 @@ import { createStoreMap } from './store/store'
 
 useStaticRendering(true)
 
-export default (stores, routerContext, sheetsRegistry, jss, theme, url) => (
-  <Provider {...stores}>
-    <StaticRouter context={routerContext} location={url}>
-      <JssProvider sheetsRegistry={sheetsRegistry} jss={jss}>
-        <MuiThemeProvider theme={theme}>
-          <App />
-        </MuiThemeProvider>
-      </JssProvider>
-    </StaticRouter>
-  </Provider >
-)
+export default (stores, routerContext, sheetsRegistry, jss, theme, url) => {
+  return (
+    <Provider {...stores}>
+      <StaticRouter context={routerContext} location={url}>
+        <JssProvider sheetsRegistry={sheetsRegistry} jss={jss}>
+          <MuiThemeProvider theme={theme}>
+            <App />
+          </MuiThemeProvider>
+        </JssProvider>
+      </StaticRouter>
+    </Provider >
+  )
+}
 
 export { createStoreMap }
