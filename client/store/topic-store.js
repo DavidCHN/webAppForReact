@@ -4,6 +4,7 @@ import {
   // computed,
   action,
   extendObservable,
+  computed,
 } from 'mobx'
 import {
   get,
@@ -21,16 +22,27 @@ class Topic {
   @observable syncing = false
 }
 class TopicStore {
-  @observable topics
   @observable syncing
-  constructor({ syncing, topics } = { syncing: false, topics: [] }) {
+  @observable topics
+  @observable details
+  constructor({ syncing, topics, details } = { syncing: false, topics: [], details: [] }) {
     this.syncing = syncing
     this.topics = topics.map((topic) => {
+      return new Topic(createTopic(topic))
+    })
+    this.details = details.map((topic) => {
       return new Topic(createTopic(topic))
     })
   }
   addTopic(topic) {
     this.topics.push(new Topic(createTopic(topic)))
+  }
+
+  @computed get detailsMap() {
+    return this.details.reduce((result, detail) => {
+      result[detail.id] = detail//eslint-disable-line
+      return result
+    }, {})
   }
   @action fetchTopics(tab) {
     return new Promise((resolve, reject) => {
@@ -52,6 +64,26 @@ class TopicStore {
       }).catch((err) => {
         reject(err)
       })
+    })
+  }
+
+  @action getTopicDetail(id) {
+    return new Promise((resolve, reject) => {
+      if (this.detailsMap[id]) {
+        resolve(this.detailsMap[id])
+      } else {
+        get(`/topic/${id}`, {
+          mdrender: false,
+        }).then((resp) => {
+          if (resp.success) {
+            const topic = new Topic(createTopic(resp.data))
+            this.details.push(topic)
+            resolve(topic)
+          } else {
+            reject()
+          }
+        }).catch(reject)
+      }
     })
   }
 }

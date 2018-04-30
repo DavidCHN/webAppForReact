@@ -37,12 +37,10 @@ export default class TopicList extends React.Component {
     }
   }
 
-
-  /* eslint-disable */
-  onClickHandle() {
-
+  onClickHandle(topic) {
+    this.context.router.history.push(`/detail/${topic.id}`)
   }
-  /* eslint-enable */
+
   getTab(search) {
     const searchs = search || this.props.location.search
     const query = queryString.parse(searchs)
@@ -94,7 +92,13 @@ export default class TopicList extends React.Component {
         <List>
           {
             topicList.map((topic) => {
-              return <TopicListItem key={topic.id} onClick={this.onClickHandle} topic={topic} />
+              return (
+                <TopicListItem
+                  key={topic.id}
+                  onClick={() => { this.onClickHandle(topic) }}
+                  topic={topic}
+                />
+              )
             })
           }
         </List>
