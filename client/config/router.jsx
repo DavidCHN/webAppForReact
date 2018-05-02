@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom'
 import TopicList from '../views/topic-list/index'
 import TopicDetail from '../views/topic-detail/index'
 import TestAPI from '../views/test/api-test'
+import UserLogin from '../views/user/login'
+import User from '../views/user/user'
 
 export default () => {
   return ([
@@ -10,6 +12,8 @@ export default () => {
     <Route path="/list" component={TopicList} key="list" />,
     <Route path="/detail/:id" component={TopicDetail} key="detail" />,
     <Route path="/test" component={TestAPI} key="test" />,
+    <Route path="/user/login" component={UserLogin} key="login" />,
+    <Route path="/user/info" component={User} key="userinfo" />,
   ]
   )
 }
