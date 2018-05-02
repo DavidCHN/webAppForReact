@@ -47,11 +47,11 @@ class User extends React.Component {
 
 User.wrappedComponent.propTypes = {
   user: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired,
 }
 
 User.propTypes = {
   classes: PropTypes.object.isRequired,
-  children: PropTypes.element.isRequired,
 }
 
 export default withStyles(userStyles)(User)

@@ -43,15 +43,15 @@ class UserInfo extends React.Component {
   }
 
   componentWillMount() {
-    this.props.appState.getUserDetail()
-    this.props.appState.getUserCollection()
+    // this.props.appState.getUserDetail()
+    // this.props.appState.getUserCollection()
   }
 
   render() {
     const { classes } = this.props
-    const topics = this.props.user.detail.recent_topics
-    const replies = this.props.user.detail.recent_replies
-    const collections = this.props.user.collections.list
+    const topics = []
+    const replies = []
+    const collections = []
     return (
       <UserWrapper>
         <div className={classes.root}>
@@ -118,12 +118,12 @@ class UserInfo extends React.Component {
 }
 
 UserInfo.wrappedComponent.propTypes = {
-  appState: PropTypes.object.isRequired,
+  // appState: PropTypes.object.isRequired,
 }
 
 UserInfo.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  // user: PropTypes.object.isRequired,
 }
 
 export default withStyles(infoStyles)(UserInfo)
